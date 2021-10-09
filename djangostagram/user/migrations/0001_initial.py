@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Dsuser',
+            name='DSUser',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=128, verbose_name='아이디')),
@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name': '사용자',
                 'verbose_name_plural': '사용자',
-                'db_table': 'djangostagram_dsuser',
+                'db_table': 'djangostagram_DSUser',
             },
         ),
     ]

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from django.contrib.auth.hashers import make_password
 
-from .models import Dsuser
+from .models import DSUser
 from .forms import RegisterFrom, LoginForm
 
 # Create your views here.
@@ -19,7 +19,7 @@ class RegisterView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
-        user = Dsuser(name=form.data.get('name'),
+        user = DSUser(name=form.data.get('name'),
                       email=form.data.get('email'),
                       password=make_password(form.data.get('password'))
                       )

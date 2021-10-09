@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.hashers import check_password
 from django.forms.widgets import PasswordInput
 
-from .models import Dsuser
+from .models import DSUser
 
 
 class RegisterFrom(forms.Form):
@@ -46,10 +46,10 @@ class LoginForm(forms.Form):
 
         if name and password:
             try:
-                user = Dsuser.objects.get(name=name)
+                user = DSUser.objects.get(name=name)
 
                 if not check_password(password, user.password):
                     self.add_error('password', '비밀번호가 일치하지 않습니다.')
                     
-            except Dsuser.DoesNotExist as e:
+            except DSUser.DoesNotExist as e:
                 self.add_error('name', '아이디가 없습니다.')
