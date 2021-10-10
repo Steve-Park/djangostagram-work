@@ -45,23 +45,23 @@ class ViewPost(FormView, DetailView):
 
     def post(self, request, *args, **kwargs):
         return FormView.post(self, request, *args, **kwargs)
-    
+
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.filter(pk=self.kwargs['pk'])
-    
+
     def form_valid(self, form):
         post = Post.objects.get(pk=self.kwargs['pk'])
 
-        post.title=form.data.get('title')
-        post.content=form.data.get('content')
-        post.imageurl=form.data.get('imageurl')
+        post.title = form.data.get('title')
+        post.content = form.data.get('content')
+        post.imageurl = form.data.get('imageurl')
         post.save()
-        
+
         post.tags.clear()
 
         for tag_name in form.data.get('tags').split(','):
             tag, _ = Tag.objects.get_or_create(name=tag_name.strip())
             post.tags.add(tag)
 
-        return super().form_valid(form)    
+        return super().form_valid(form)
