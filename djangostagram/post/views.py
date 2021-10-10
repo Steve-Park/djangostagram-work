@@ -31,17 +31,37 @@ class UploadPost(FormView):
         return super().form_valid(form)
 
 
-class ViewPost(DetailView):
+class ViewPost(FormView, DetailView):
+    model = Post
+    form_class = PostForm
     template_name = 'view_post.html'
-    queryset = Post.objects.all()
     context_object_name = 'post'
+    success_url = '/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = PostForm(self.request)
+        context['form'] = self.get_form()
         return context
 
-    # def get_queryset(self):
-    #     # return super().get_queryset()
-    #     self.pk = get_object_or_404(Post, pk=self.kwargs['pk'])
-    #     return Post.objects.get(pk=self.pk)
+    def post(self, request, *args, **kwargs):
+        return FormView.post(self, request, *args, **kwargs)
+    
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(pk=self.kwargs['pk'])
+    
+    def form_valid(self, form):
+        post = Post.objects.get(pk=self.kwargs['pk'])
+
+        post.title=form.data.get('title')
+        post.content=form.data.get('content')
+        post.imageurl=form.data.get('imageurl')
+        post.save()
+        
+        post.tags.clear()
+
+        for tag_name in form.data.get('tags').split(','):
+            tag, _ = Tag.objects.get_or_create(name=tag_name.strip())
+            post.tags.add(tag)
+
+        return super().form_valid(form)    
