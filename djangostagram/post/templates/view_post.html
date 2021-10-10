@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block contents %}
+<div class="row">
+    <div class="mb-3">
+        <label class="form-label">제목</label>
+        <input class="form-control" type="text" name="title" placeholder="{{ post.title }}" readonly />
+        <label class="form-label">내용</label>
+        <!-- <textarea class="form-control" name="content" readonly>{{ post.content }}</textarea> -->
+        <span class="form-control" readonly>{{ post.content | safe }}</span>
+        <label class="form-label">이미지 주소</label>
+        <input class="form-control" type="text" name="imageurl" placeholder="{{ post.imageurl }}" readonly />
+        <image class="form-control" src="{{ post.imageurl }}"></image>
+        <label class="form-label">작성자</label>
+        <input class="form-control" type="text" name="author" placeholder="{{ post.author }}" readonly />
+        <label class="form-label">등록일</label>
+        <input class="form-control" type="text" placeholder="{{ post.registered_date | date:'Y-m-d H:i' }}" readonly />
+        <label class="form-label">태그</label>
+        <span class="form-control" readonly>{{ post.tags.all | join:", " }}</span>
+    </div>
+</div>
+{% endblock contents %}

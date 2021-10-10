@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
-
     <!-- Bootswatch Theme (Cosmo) -->
     <link rel="stylesheet" href="/static/bootstrap.min.css">
-    
     <!-- Bootstrap JavaScript -->
     <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
@@ -19,34 +16,41 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js"
         integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u"
         crossorigin="anonymous"></script>
-
+    <!-- jQuery JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Custom Header -->
     {% block headers %}
     {% endblock headers %}
 </head>
 
 <body>
-    <ul class="nav justify-content-end">
-        <li class="nav-item">
-            <a class="nav-link active" href="#">타임라인</a>
-        </li>
-        {% if name %}
-        <li class="nav-item">
-            <a class="nav-link" href="/logout">로그아웃</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">글작성</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-            <a class="nav-link" href="/user/register">회원가입</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/user/login">로그인</a>
-        </li>
-        {% endif %}
-    </ul>
+    <!-- Nativation Bar -->
+    <div class="row">
+        <ul class="nav nav-pills justify-content-end mt-3 mb-3">
+            <img class="d-inline-block" src="/static/work-logo.png" height="40px" />
+            <li class="nav-item">
+                <a class="nav-link" id="timeline" href="/">타임라인</a>
+            </li>
+            {% if request.session.name %}
+            <li class="nav-item">
+                <a class="nav-link" id="logout" href="/user/logout">로그아웃</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="upload" href="/upload">글작성</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" id="register" href="/user/register">회원가입</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="login" href="/user/login">로그인</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+    <!-- Custom Content -->
     <div class="container">
-        {% block contents %}      
+        {% block contents %}
         {% endblock contents %}
     </div>
 </body>

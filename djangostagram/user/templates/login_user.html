@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block headers %}
+<script>
+  $(document).ready(function() {
+    $('#login').addClass("active");
+  });
+</script>
+<title>로그인</title>
+{% endblock headers %}
+
+{% block contents %}
+<div class="row">
+    <form action="." method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <input class="form-control" type="{{ field.field.widget.input_type }}" id="{{ field.id_for_label }}"
+                placeholder="{{ field.label }}" name="{{ field.name }}" />
+        </div>
+        {% if field.errors %}
+        <span class="fs6 text-decoration-underline" style="color: red;">{{ field.errors }}</span>
+        {% endif %}
+        {% endfor %}
+    
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">로그인</button>
+        </div>
+    </form>
+</div>
+{% endblock contents %}

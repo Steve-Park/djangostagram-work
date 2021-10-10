@@ -10,8 +10,8 @@ class DSUser(models.Model):
 
     class Meta:
         db_table = 'dstagram_user'
-        verbose_name = '사용자'
-        verbose_name_plural = '사용자'
+        verbose_name = '회원'
+        verbose_name_plural = '회원'
 
     def __str__(self):
         return self.name
